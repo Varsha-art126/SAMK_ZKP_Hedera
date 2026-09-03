@@ -1,0 +1,47 @@
+{
+  "experiment": "SAMK ZKP Batch Pipeline",
+  "timestamp": "2026-09-03T12:56:45.799Z",
+  "parameters": {
+    "total_samples": 1200,
+    "circuit_constraints": 480,
+    "compliance_checks": 9,
+    "proof_system": "Groth16",
+    "curve": "bn128"
+  },
+  "results": {
+    "total": 1200,
+    "eligible_generated": 841,
+    "ineligible_generated": 359,
+    "proofs_generated": 841,
+    "proofs_failed": 359,
+    "verifications_passed": 841,
+    "verifications_failed": 0,
+    "onchain_submitted": 0,
+    "success_rate": "70.08%"
+  },
+  "performance": {
+    "total_time_s": "455.56",
+    "samples_per_second": "2.63",
+    "avg_generate_time_ms": "379.6",
+    "avg_witness_time_ms": "367.7",
+    "avg_verify_time_ms": "11.1",
+    "min_generate_time_ms": 169,
+    "max_generate_time_ms": 140060,
+    "min_verify_time_ms": 4,
+    "max_verify_time_ms": 51
+  },
+  "jurisdiction_distribution": {
+    "Maharashtra": 140,
+    "Karnataka": 147,
+    "Delhi": 152,
+    "Gujarat": 160,
+    "Rajasthan": 165,
+    "Uttar_Pradesh": 150,
+    "Telangana": 141,
+    "Chandigarh": 145
+  },
+  "eligibility_distribution": {
+    "eligible": 841,
+    "ineligible": 359
+  }
+}
