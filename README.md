@@ -35,42 +35,30 @@ KYC + Property Documents (OFF-CHAIN)
     Fractional Property Tokens Minted
 ```
 
-## Components
+## Hedera Testnet Deployment
 
-### 1. ZK Circuit (`compliance_samk.circom`)
+| Field | Value |
+|-------|-------|
+| Contract ID | 0.0.10346271 |
+| Contract Address | 0x5B82D2954c8F0633Fae818754B5301E3939c3B61 |
+| Account ID | 0.0.10119894 |
+| Network | Hedera Testnet |
+| Total HBAR Spent | ~2.8 HBAR ($0.21) |
 
-Proves 9 compliance checks without revealing private data:
-- KYC verification
-- Title validity
-- Registry verification
-- Mutation completion
-- Encumbrance status
-- Tax payment
-- Zoning compliance
-- Jurisdiction eligibility
-- Document commitment
+### View on HashScan
 
-**Circuit Stats:**
-- 480 constraints
-- 10 private inputs
-- 3 public inputs
-- 1 public output (eligible)
+| What | Link |
+|------|------|
+| Contract | [View](https://hashscan.io/testnet/contract/0x5B82D2954c8F0633Fae818754B5301E3939c3B61) |
+| Account | [View](https://hashscan.io/testnet/account/0.0.10119894) |
+| Deploy TX | [View](https://hashscan.io/testnet/tx/0.0.7314364-1788426325-305050043) |
+| Asset Creation 1 | [View](https://hashscan.io/testnet/tx/0.0.7314364-1788426586-614501470) |
+| Verifier Auth | [View](https://hashscan.io/testnet/tx/0.0.7314364-1788426931-489197528) |
+| Asset Creation 2 | [View](https://hashscan.io/testnet/tx/0.0.7314364-1788426953-827368484) |
 
-### 2. Smart Contract (`SAMKZkpTokenization.sol`)
+### Screenshots
 
-ERC-1155 contract on Hedera testnet with ZKP approval gate:
-- `createAssetWithZkp()` — Creates asset after ZKP verification
-- `buyAssetFraction()` — Investors purchase fractional shares
-- `setAuthorisedVerifier()` — Owner controls who can verify
-
-**Deployed at:** `0x5B82D2954c8F0633Fae818754B5301E3939c3B61`
-
-### 3. Backend Bridge (`verifyAndOnboard.js`)
-
-Connects ZKP proof to Hedera blockchain:
-- Reads Groth16 proof + public signals
-- Verifies locally with snarkjs (~500ms)
-- Submits to Hedera via JSON-RPC relay
+See [docs/screenshots/](docs/screenshots/) for HashScan transaction screenshots.
 
 ## Results
 
@@ -82,19 +70,29 @@ Connects ZKP proof to Hedera blockchain:
 | Smart Contract Deployment | ~0.05 HBAR |
 | Total Gas Used (Asset Creation) | 305,822 |
 
-## Hedera Testnet Deployment
+### ZKP Circuit Results
 
-- **Contract ID:** `0.0.10346271`
-- **Contract Address:** `0x5B82D2954c8F0633Fae818754B5301E3939c3B61`
-- **Account ID:** `0.0.10119894`
-- **Network:** Hedera Testnet
+| Metric | Value |
+|--------|-------|
+| Circuit File | compliance_samk.circom |
+| Constraints | 480 |
+| Private Inputs | 10 |
+| Public Inputs | 3 |
+| Compliance Checks | 9 (KYC, title, registry, mutation, encumbrance, tax, zoning, jurisdiction, document) |
 
-### Verified Transactions
+## Components
 
-| Transaction | HashScan Link |
-|-------------|---------------|
-| Contract Deployment | [View](https://hashscan.io/testnet/tx/0.0.7314364-1788426325-305050043) |
-| ZKP Asset Creation | [View](https://hashscan.io/testnet/tx/0.0.7314364-1788426953-827368484) |
+### 1. ZK Circuit (`circuit/compliance_samk.circom`)
+
+Proves 9 compliance checks without revealing private data.
+
+### 2. Smart Contract (`contracts/SAMKZkpTokenization.sol`)
+
+ERC-1155 contract on Hedera testnet with ZKP approval gate.
+
+### 3. Backend Bridge (`scripts/verifyAndOnboard.js`)
+
+Connects ZKP proof to Hedera blockchain via JSON-RPC relay.
 
 ## Project Structure
 
@@ -102,16 +100,20 @@ Connects ZKP proof to Hedera blockchain:
 SAMK_ZKP_Hedera/
 ├── contracts/
 │   └── SAMKZkpTokenization.sol    # ERC-1155 with ZKP gate
+├── circuit/
+│   └── compliance_samk.circom     # ZK circuit (480 constraints)
 ├── scripts/
 │   ├── deployWithEthers.js        # Deploy to Hedera
 │   └── verifyAndOnboard.js        # ZKP verification bridge
-├── circuit/
-│   └── compliance_samk.circom     # ZK circuit
 ├── build/
 │   ├── SAMKZkpTokenization.abi    # Contract ABI
 │   └── SAMKZkpTokenization.bin    # Contract bytecode
+├── docs/
+│   ├── HASHSCAN_LINKS.md          # All transaction links
+│   └── screenshots/               # HashScan screenshots
 ├── compile.js                     # Solidity compiler
 ├── package.json                   # Dependencies
+├── RESULTS.md                     # Detailed results
 └── README.md                      # This file
 ```
 
