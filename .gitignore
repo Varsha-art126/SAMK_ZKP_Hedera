@@ -1,0 +1,16 @@
+node_modules/
+.env
+*.ptau
+*.zkey
+*.wtns
+*.r1cs
+*.sym
+*_js/
+build/*.bin
+proof_*.json
+public_*.json
+input_*.json
+witness_*.json
+onboarded_*.json
+deployment.json
+HASHSCAN_LINKS.html
